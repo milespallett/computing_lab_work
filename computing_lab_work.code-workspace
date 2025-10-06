@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "C:/Users/miles/OneDrive/Desktop/UniWork/EmbedSys-CS12001/CS12001"
+		}
+	],
+	"settings": {
+		"python.analysis.typeshedPaths": [
+			"~/.micropico-stubs/included"
+		],
+		"python.analysis.extraPaths": [
+			"~/.micropico-stubs/included"
+		]
+	}
+}
