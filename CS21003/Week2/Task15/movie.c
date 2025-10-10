@@ -7,14 +7,17 @@
 
 void displayMovie(Movie *infoToDisplay)
 {
-    printf("\nName: %s\nRuntime: %d\nRating: %.1lf\n", infoToDisplay->name, infoToDisplay->runTime, infoToDisplay->rating);
+    int runTimeToDisplay;
+    getMovieRunTime(infoToDisplay, runTimeToDisplay);
+
+    printf("\nName: %s\nRuntime: %d\nRating: %.1lf\n", infoToDisplay->name, runTimeToDisplay, infoToDisplay->rating);
     return;
 }
 
 void displayMovieArray(Movie *arrayToDisplay[], int size)
 {
     for (int i=0; i<size; i++){
-        printf("\nMovie %d\nName: %s\nRuntime: %d\nRating: %.1lf\n", i+1, arrayToDisplay[i]->name, arrayToDisplay[i]->runTime, arrayToDisplay[i]->rating);
+        displayMovie(arrayToDisplay[i]);
     }
     return;
 }
