@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct MovieInformation{
     int movieRunTime;
@@ -36,6 +37,24 @@ int main()
     int userMovieRunTime;
     double userMovieRating;
 
+    //Task 8
+    /*
+    if ((movieInfo *) malloc(sizeof(*pMovieInfo)) != NULL){
+        pMovieInfo = (movieInfo *) malloc(sizeof(*pMovieInfo));
+        printf("success");
+    }
+    else{printf("Not enough memory space... exiting...");return 0;}
+
+    strcpy(pMovieInfo->movieName, "Moon");
+    pMovieInfo->movieRunTime = 97;
+    pMovieInfo->movieRating = 7.8;
+    
+    displayMovieInformation1(pMovieInfo);
+    */
+
+    
+    //Tasks 6-7
+    /*
     movieInfo userMovieArray[3];
 
     for (int i=0; i<3; i++){
@@ -48,7 +67,10 @@ int main()
     }
 
     displayMovieArray(userMovieArray, (sizeof(userMovieArray)/sizeof(userMovieArray[0])));
+    */
 
+
+    //Tasks 1-5
     /*
     movieInfo userMovie;
     printf("Movie name: ");
