@@ -140,3 +140,32 @@ int peekAtHeadPassenger(PassengerQueue *qPtr, Passenger *p)
    
    return SUCCESS;
 }
+
+/**
+ * Assign the values of the head of the queue to a provided pointer, 
+ * then remove the head of the queue, free its memory allocation, 
+ * and reassign the head of the queue to the next node in the queue.
+ */
+int removePassengerAtHead(PassengerQueue* qPtr, Passenger *p)
+{
+   //If queue is empty, return error message
+   if (qPtr == NULL){
+      return INVALID_INPUT_PARAMETER;
+   }
+
+   //assign values from head of queue to provided pointer
+   p->ID = qPtr->head->ID;
+   strcpy(p->name, qPtr->head->name);
+   p->next = qPtr->head->next;
+
+   //assign head of queue to a temporary pointer
+   Passenger *toRemove = qPtr->head;
+
+   //assign head position of queue to next node in the queue
+   qPtr->head = qPtr->head->next;
+
+   //free the allocated memory from the node hich has been removed
+   free(toRemove);
+
+   return SUCCESS;
+}

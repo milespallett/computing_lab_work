@@ -158,7 +158,7 @@ int main()
 		printf("Successfully peeked at head passenger in queue.\n");
 		printf("Passenger is %s with ID %d.\n", p.name, p.ID);
 	}
-/*
+
 	// (attempt to) remove / pop a passenger from the HEAD of the queue
 	printf("\nAttempting to remove passenger from HEAD of queue..");
 	Passenger passengerRemoved; // a variable to receive a copy of the information pertaining to the passenger removed from the front of the queue
@@ -184,7 +184,7 @@ int main()
 		// Queue should now be: head -> passenger1 (ID43) -> passenger3 (ID12)
 		displayQueue(pQueue);
 	}
-
+/*
 	// (attempt to) remove / pop a passenger from the TAIL of the queue
 	printf("\nAttempting to remove passenger from TAIL of queue..");
 	result = removePassengerAtTail(pQueue, &passengerRemoved); // this calls your implementation of removePassengerAtTail()
