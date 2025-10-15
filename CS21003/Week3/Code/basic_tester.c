@@ -143,7 +143,7 @@ int main()
 	// get count of passengers in queue
 	int count = getPassengerCount(pQueue); // this calls your implementation of getPassengerCount()
 	printf("\nThere are %d passengers in the queue.\n\n", count);
-/*
+
 	// peek at the head passenger in the queue
 	Passenger p;
 	result = peekAtHeadPassenger(pQueue, &p); // this calls your implementation of peekAtHeadPassenger()
@@ -158,7 +158,7 @@ int main()
 		printf("Successfully peeked at head passenger in queue.\n");
 		printf("Passenger is %s with ID %d.\n", p.name, p.ID);
 	}
-
+/*
 	// (attempt to) remove / pop a passenger from the HEAD of the queue
 	printf("\nAttempting to remove passenger from HEAD of queue..");
 	Passenger passengerRemoved; // a variable to receive a copy of the information pertaining to the passenger removed from the front of the queue

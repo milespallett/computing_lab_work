@@ -121,3 +121,22 @@ int getPassengerCount(PassengerQueue* qPtr)
    
    return count;
 }
+
+/**
+ * Assign the head of the queue to a provided pointer, returning 
+ * either SUCCESS or an appropriate error message
+ */
+int peekAtHeadPassenger(PassengerQueue *qPtr, Passenger *p)
+{
+   //Check if queue is empty and if so return an error message
+   if (qPtr == NULL){
+      return INVALID_INPUT_PARAMETER;
+   }
+
+   //Assign the given Passenger pointer to the head of the queue
+   p->ID = qPtr->head->ID;
+   strcpy(p->name, qPtr->head->name);
+   p->next = qPtr->head->next;
+   
+   return SUCCESS;
+}
