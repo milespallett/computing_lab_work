@@ -184,7 +184,7 @@ int main()
 		// Queue should now be: head -> passenger1 (ID43) -> passenger3 (ID12)
 		displayQueue(pQueue);
 	}
-/*
+
 	// (attempt to) remove / pop a passenger from the TAIL of the queue
 	printf("\nAttempting to remove passenger from TAIL of queue..");
 	result = removePassengerAtTail(pQueue, &passengerRemoved); // this calls your implementation of removePassengerAtTail()
@@ -209,7 +209,7 @@ int main()
 		// Queue should now be: head -> passenger1 (ID43)
 		displayQueue(pQueue);
 	}
-
+/*
 	// clear the queue when finished.
 	printf("\nAttempting to clear the queue..");
 	if (clearQueue(pQueue) != SUCCESS) // this calls your implementation of clearQueue()

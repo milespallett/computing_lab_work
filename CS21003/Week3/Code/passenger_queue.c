@@ -164,7 +164,43 @@ int removePassengerAtHead(PassengerQueue* qPtr, Passenger *p)
    //assign head position of queue to next node in the queue
    qPtr->head = qPtr->head->next;
 
-   //free the allocated memory from the node hich has been removed
+   //free the allocated memory from the node which has been removed
+   free(toRemove);
+
+   return SUCCESS;
+}
+
+/**
+ * Assign the values of the tail of the queue to a provided pointer,
+ * then remove the tail of the queue, free its memory allocation,
+ * and reassign the tail of the queue to the previous node in the queue.
+ */
+int removePassengerAtTail(PassengerQueue* qPtr, Passenger *p)
+{
+   //If queue is empty, return error message
+   if(qPtr == NULL){
+      return INVALID_INPUT_PARAMETER;
+   }
+
+   //assign values from tail of queue to provided pointer
+   p->ID = qPtr->tail->ID;
+   strcpy(p->name, qPtr->tail->name);
+   p->next = qPtr->tail->next; //(NULL)
+
+   //assign tail of the queue to a temporary pointer
+   Passenger *toRemove = qPtr->tail;
+
+   //assign tail position of queue to previous node in the queue
+   Passenger *currentPassenger = qPtr->head;
+
+   while (currentPassenger->next != qPtr->tail){
+      currentPassenger = currentPassenger->next;   //should find the node before the tail in the queue
+   }
+
+   currentPassenger->next = NULL;
+   qPtr->tail = currentPassenger;
+
+   //free the allocated memory from the node which has been removed
    free(toRemove);
 
    return SUCCESS;
