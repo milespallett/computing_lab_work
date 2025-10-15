@@ -97,3 +97,27 @@ int addPassenger(PassengerQueue* qPtr, int passengerID, char passengerName[], in
 
    return SUCCESS;
 }
+
+/**
+ * Check through each node in the provided queue and return a 
+ * count of the number of nodes within.
+ */
+int getPassengerCount(PassengerQueue* qPtr)
+{
+   //Check if queue provided is empty and if so, return a value of zero
+   if (qPtr == NULL){
+      return 0;
+   }
+
+   //Create a pointer to the passanger at the head of the queue
+   Passenger *currentPassenger = qPtr->head;
+   int count=1;
+
+   //Move to the next passenger in the queue, iterating the count each time, until the end of the queue is reached
+   do{
+      currentPassenger = currentPassenger->next;
+      count++;
+   }while (currentPassenger->next != NULL);
+   
+   return count;
+}

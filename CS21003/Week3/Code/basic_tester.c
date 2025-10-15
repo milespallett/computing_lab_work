@@ -136,14 +136,14 @@ int main()
 		// display queue for confirmation
 		displayQueue(pQueue);
 	}
-/*
+
 	// so far, we have added three passengers and they queue should be as follows:
 	// head -> passenger2 (ID22) -> passenger1 (ID43) -> passenger3 (ID12)
 
 	// get count of passengers in queue
 	int count = getPassengerCount(pQueue); // this calls your implementation of getPassengerCount()
 	printf("\nThere are %d passengers in the queue.\n\n", count);
-
+/*
 	// peek at the head passenger in the queue
 	Passenger p;
 	result = peekAtHeadPassenger(pQueue, &p); // this calls your implementation of peekAtHeadPassenger()
