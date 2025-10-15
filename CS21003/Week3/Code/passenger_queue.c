@@ -205,3 +205,26 @@ int removePassengerAtTail(PassengerQueue* qPtr, Passenger *p)
 
    return SUCCESS;
 }
+
+/**
+ * Frees memory allocated to each node in the queue, and then the queue itself.
+ */
+int clearQueue(PassengerQueue *qPtr)
+{
+   //Check if queue is empty and return error code if so
+   if (qPtr == NULL){
+      return INVALID_INPUT_PARAMETER;
+   }
+
+   Passenger *currentPassenger = qPtr->head; //Assign pointer to head of queue
+   Passenger *tempNext; //Temporary pointer used to hold the 'next' field of the node about to be removed
+   do{
+      tempNext = currentPassenger->next;  //assigns the next node to be removed to the temporary pointer
+      free(currentPassenger); //free the memory allocated to the node currently being accessed
+      currentPassenger = tempNext;  //access the next node
+   }while (currentPassenger != NULL);
+   
+   free(qPtr); //free the memory allocated to the queue itself now the queue is empty
+
+   return SUCCESS;
+}

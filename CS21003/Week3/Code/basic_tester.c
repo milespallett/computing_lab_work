@@ -209,7 +209,7 @@ int main()
 		// Queue should now be: head -> passenger1 (ID43)
 		displayQueue(pQueue);
 	}
-/*
+
 	// clear the queue when finished.
 	printf("\nAttempting to clear the queue..");
 	if (clearQueue(pQueue) != SUCCESS) // this calls your implementation of clearQueue()
@@ -221,7 +221,7 @@ int main()
 	{
 		printf("..queue cleared successfully!\n\n");		
 	}
-
+	
 	/**
 	 * If you have implemented the sort() function, you could try a separate test for that
 	 * PassengerQueue *pQueue2 = createQueue();
