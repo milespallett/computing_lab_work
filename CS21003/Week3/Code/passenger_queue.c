@@ -38,4 +38,62 @@ PassengerQueue *createQueue()
    return pQueue;
 }
 
-// add implementations of other functions here too, e.g., addPassenger(), removePassenger(), etc.
+/**
+ * Add a new passenger to the front or end of the queue depending on priority, 
+ * returning either SUCCESS or a relevant error code.
+ */
+int addPassenger(PassengerQueue* qPtr, int passengerID, char passengerName[], int isPriority)
+{
+   //check if pointer input is valid.
+   if (qPtr == NULL){
+      return INVALID_INPUT_PARAMETER; //return error code if pointer is still set to NULL.
+   }
+
+   //check if passengerID input is within valid range.
+   if ((passengerID < 1) || (passengerID > 88801)){
+      return INVALID_INPUT_PARAMETER; //return error code if passengerID is outside the acceptable range.
+   }
+
+   //check if passengerName is of acceptable length.
+   int passengerNameLength = strlen(passengerName);
+   if (passengerNameLength > MAX_PASSENGER_NAME_LENGTH){
+      return INVALID_INPUT_PARAMETER; //return error code if length of passengerName is greater than the maximum acceptable name length.
+   }
+
+   //check if the priority is set to either 1 or 0
+   if ((isPriority < 0) || (isPriority > 1)){
+      return INVALID_INPUT_PARAMETER;  //return error code [SHOULDNT HAPPEN AS PRIORITY VALUES ARE HARD CODED IN basic_tester.c]
+   }
+
+   //create pointer to new passenger and allocate its memory space
+   Passenger *newPassenger = NULL;
+   newPassenger = (Passenger*)malloc(sizeof(Passenger));
+
+   //Check if memory allocation was succesfull and if not, return error code.
+   if (newPassenger == NULL){
+      return MEMORY_ALLOCATION_ERROR;
+   }
+
+   //Initialise the fields of the passenger with the inputs given, with the 'next' field defaulted to NULL.
+   newPassenger->next = NULL;
+   newPassenger->ID = passengerID;
+   strcpy(newPassenger->name, passengerName);
+
+   //Check if queue is empty, if so assign new data as both head and tail of queue
+   if ((qPtr->tail == NULL) || (qPtr->head == NULL)){
+      qPtr->tail = newPassenger;
+      qPtr->head = newPassenger;
+   }
+   //Check if it should be added to the end of the queue
+   else if (isPriority == 0){
+      qPtr->tail->next = newPassenger; //Set 'next' field of current tail to the new node
+      qPtr->tail = newPassenger; //Set new node as the new tail of the queue
+   }
+   //Check if it should be added to the start of the queue
+   else if (isPriority == 1){
+      newPassenger->next = qPtr->head; //Set 'next' field of new node to the current head of queue
+      qPtr->head = newPassenger; //Set new node as the new head of the queue
+   }
+
+   return SUCCESS;
+}

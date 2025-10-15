@@ -53,7 +53,7 @@ int main()
 	{
 		printf("..success!\n");
 	}
-/*
+
 	// (attempt to) add a passenger to the end of the queue
 	printf("\nAttempting to add Passenger 1 to the end of the queue, with name 'passenger1'..");
 	char passengerName1[] = "passenger1";
@@ -136,7 +136,7 @@ int main()
 		// display queue for confirmation
 		displayQueue(pQueue);
 	}
-
+/*
 	// so far, we have added three passengers and they queue should be as follows:
 	// head -> passenger2 (ID22) -> passenger1 (ID43) -> passenger3 (ID12)
 
