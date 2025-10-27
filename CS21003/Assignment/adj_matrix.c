@@ -174,14 +174,44 @@ int addEdges(AdjacencyMatrix *pMatrix, Edge edges[], int edgeNum)
  */
 int loadMatrixFromFile(AdjacencyMatrix *pMatrix, char filename[])
 {
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pMatrix;
-    (void)filename;
+    //Check inputs are valid, if not return error
+    if (pMatrix == NULL || filename == NULL){
+        return INVALID_INPUT_PARAMETER;
+    }
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    //Open file in read mode to pointer
+    FILE *pFile = fopen(filename, "r");
+    
+    //Check if file opened correctly, if not return error
+    if (pFile == NULL){
+        return INVALID_INPUT_PARAMETER;
+    }
+
+    //Local variables to hold the next character in the file
+    char nextChar;
+    int iNextChar;
+
+    //Loop until End of File is reached
+    while (nextChar != EOF){
+        for (int i=0; i<NUMBER_OF_VERTICES; i++){
+            for (int j=0; j<NUMBER_OF_VERTICES; j++){
+                //Next character in file
+                nextChar = fgetc(pFile);
+                //Convert from char to int by subtracting ASCII value of char by the ASCII value for '0'. Adapted from "https://www.geeksforgeeks.org/c/c-program-for-char-to-int-conversion/"
+                iNextChar = nextChar - '0';
+                //Set next integer to current position in matrix after converting from char
+                pMatrix->matrix[i][j] = iNextChar;
+
+                //Next character in file -- happens twice per loop as every other character is whitespace
+                nextChar = fgetc(pFile);
+            }
+        }
+    }
+    //Close file stream
+    fclose(pFile);
+
+    //If reached this point, program has succeeded, therefore return SUCCESS
+    return SUCCESS;
 }
 
 
