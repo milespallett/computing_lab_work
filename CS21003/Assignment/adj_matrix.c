@@ -80,16 +80,16 @@ AdjacencyMatrix* createAdjacencyMatrix(int defaultEdgeValue)
  */
 int addEdge(AdjacencyMatrix *pMatrix, int src, int dest, int weight)
 {
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pMatrix;
-    (void)src;
-    (void)dest;
-    (void)weight;
+    //Ensure provided inputs are valid before proceeding
+    if (pMatrix == NULL || src > NUMBER_OF_VERTICES || src < 0 || dest > NUMBER_OF_VERTICES || dest < 0){
+        return INVALID_INPUT_PARAMETER;
+    }
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    //Add edge to the provided nodes
+    pMatrix->matrix[src][dest] = weight;
+
+    //If reached this point, program has succeeded -> return SUCCESS
+    return SUCCESS;
 }
 
 /**
