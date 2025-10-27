@@ -110,15 +110,38 @@ int addEdge(AdjacencyMatrix *pMatrix, int src, int dest, int weight)
  */
 int addEdges(AdjacencyMatrix *pMatrix, Edge edges[], int edgeNum)
 { 
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pMatrix;
-    (void)edges;
-    (void)edgeNum;
+    //Check if inputs are valid, if not return error
+    if (pMatrix == NULL || edges == NULL){
+        return INVALID_INPUT_PARAMETER;
+    }
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    //Local variable to count how many invalid edges there are
+    int invalidCount = 0;
+    for (int i=0; i<edgeNum; i++){
+        int source = edges[i].src;
+        int destination = edges[i].dest;
+
+        //If source or destination values are invalid, add to invalidCount. Otherwise add edge to matrix.
+        if (source < 0 || source > NUMBER_OF_VERTICES || destination < 0 || destination > NUMBER_OF_VERTICES){
+            invalidCount++;
+        }
+        else {
+            pMatrix->matrix[source][destination] = edges[i].weight;
+        }
+    }
+
+    //If all edges were invalid, return error message
+    if (invalidCount == edgeNum) {
+        return INVALID_INPUT_PARAMETER;
+    }
+    //If at least one edge was invalid but not all, return PARTIAL_SUCCESS
+    else if (invalidCount > 0) {
+        return PARTIAL_SUCCESS;
+    }
+    //If none of the above are true, program has succeeded, return SUCCESS
+    else {
+        return SUCCESS;
+    }
 }
 
 /**
