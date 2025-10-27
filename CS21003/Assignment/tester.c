@@ -222,7 +222,7 @@ void testAddEdges()
        THE FUNCTION SHOULD PROCESS AS MANY EDGES AS IT CAN AND RETURN A RESULT OF 'PARTIAL_SUCCESS'.
        TRY THIS NOW */
 
-    /* UNCOMMENT THIS CODE IF / WHEN YOU WANT TO USE IT 
+
     // create another, fresh, empty adjacency matrix to use
     AdjacencyMatrix matrix2;
     
@@ -255,7 +255,6 @@ void testAddEdges()
     {
         printf("\nTesting 'addEdges()'. Function does NOT report PARTIAL_SUCCESS as expected.\n");
     }
-    */
 }
 
 // run tests on the 'loadMatrixFromFile' function
