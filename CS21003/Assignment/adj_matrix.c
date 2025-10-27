@@ -49,13 +49,26 @@
  */
 AdjacencyMatrix* createAdjacencyMatrix(int defaultEdgeValue)
 {
-    // a void cast to prevent 'unused variable warning'
-    // remove the following line of code when you have 
-    // implemented the function yourself
-    (void)defaultEdgeValue;
+    //Create temporary null pointer to new matrix.
+    AdjacencyMatrix *pAdjacencyMatrix = NULL;
 
-    // returning NOT_IMPLEMENTED until your own implementation is provided
-    return NULL;
+    //Allocate memory for new matrix using provided myMalloc() function.
+    pAdjacencyMatrix = (AdjacencyMatrix*)myMalloc(sizeof(AdjacencyMatrix));
+
+    //Check if memory allocation was successful, if not: return NULL.
+    if (pAdjacencyMatrix == NULL){
+        return NULL;
+    }
+
+    //Iterate through each space in matrix and initialise it with default value provided.
+    for (int i=0; i<NUMBER_OF_VERTICES; i++){
+        for (int j=0; j<NUMBER_OF_VERTICES; j++){
+            pAdjacencyMatrix->matrix[i][j] = defaultEdgeValue;
+        }
+    }
+
+    //Return pointer to new matrix
+    return pAdjacencyMatrix;
 }
 
 /**
