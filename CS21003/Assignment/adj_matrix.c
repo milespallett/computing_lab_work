@@ -215,17 +215,48 @@ int loadMatrixFromFile(AdjacencyMatrix *pMatrix, char filename[])
 }
 
 
-
-
+//Initialise visited array so it can be accessed at all times
+bool visited[10] = {false,false,false,false,false,false,false,false,false,false};
 int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traversalOutput[])
 { 
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pMatrix;
-    (void)startingNode;
-    (void)traversalOutput;
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    if (pMatrix = NULL || startingNode == 0){
+        return INVALID_INPUT_PARAMETER;
+    }
+
+    //initialise a variable to hold the next node in the sequence
+    int nextNode;
+
+    //add the current node to the visited array
+    visited[startingNode] = true;
+    //find next free space in traversalOutput array and add the current node to this
+    for (int j=0; j<NUMBER_OF_VERTICES; j++){
+        if (traversalOutput[j] == -1){
+            traversalOutput[j] = startingNode;
+            break;
+        }
+    }
+    //loop while there is another node on this branch
+    while (startingNode){
+        //for each possible node connecting to this current node
+        for (int i=0; i<NUMBER_OF_VERTICES; i++){
+            //assign next node to the current value being checked
+            nextNode = pMatrix->matrix[startingNode][i];
+            //if edge is found
+            if (nextNode != 0){
+                //if new node hasnt been visited yet
+                if (!visited[i]){
+                    //Re-call the function with the new node as the starting node
+                    doDepthFirstTraversal(pMatrix, i, traversalOutput);
+                }
+            }
+        }
+        //set starting node to the next node - for checking when end of branch has been reached
+        startingNode = nextNode;
+    }
+
+    //if reached this point, traversal should have finished - return success
+    return SUCCESS;
+
+
 }
