@@ -220,7 +220,7 @@ bool visited[10] = {false,false,false,false,false,false,false,false,false,false}
 int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traversalOutput[])
 { 
 
-    if (pMatrix = NULL || startingNode == 0){
+    if (pMatrix == NULL || startingNode == 0){
         return INVALID_INPUT_PARAMETER;
     }
 
