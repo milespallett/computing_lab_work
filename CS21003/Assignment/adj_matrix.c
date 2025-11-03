@@ -219,7 +219,7 @@ int loadMatrixFromFile(AdjacencyMatrix *pMatrix, char filename[])
 int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traversalOutput[])
 { 
 
-    if (pMatrix == NULL || startingNode == 0){
+    if (pMatrix == NULL){
         return INVALID_INPUT_PARAMETER;
     }
 
