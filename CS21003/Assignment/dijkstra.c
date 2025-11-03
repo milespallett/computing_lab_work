@@ -29,6 +29,7 @@
  * ### INCLUDES
  */
 #include <stddef.h>
+#include <stdio.h>
 #include "adj_matrix.h" // provides the definition of the 'Adjacency Matrix' struct which is required for one of the functions below
 #include "dijkstra.h"   // provides the definition of structs and functions for the Dijkstra implementation
 
@@ -48,17 +49,69 @@
  * 
  * The function should return SUCCESS or a relevant error code.
  */
+//variable is required to be global for recurrancy
+int count = 0;
 int runDijsktraAlgorithm(AdjacencyMatrix *pMatrix, DijkstraTable *pTable, int startNode)
 {
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pMatrix;
-    (void)pTable;
-    (void)startNode;
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    //Check if inputs are valid, if not return error message
+    if (pMatrix == NULL){
+        return INVALID_INPUT_PARAMETER;
+    }
+
+    //initialise required variables
+    int minimumDistance = VERY_LARGE_NUMBER;
+    int newDistance;
+    int tempNode;
+    bool found = false;
+
+    //mark current node as visited
+    pTable->table[startNode].visited = true;
+    //if it is the source node, mark distance as 0
+    if (pTable->table[startNode].predecessor < 0){
+        pTable->table[startNode].distance = 0;
+    }
+
+    //for each possible edge on the current node
+    for (int i=0; i<NUMBER_OF_VERTICES; i++){
+        //check if either the node exists and hasnt been visited OR if the node exists and the distance to it is shorter than the current recorded shortest distance to the node
+        if ((pMatrix->matrix[startNode][i] != 0 && !pTable->table[i].visited) || (pMatrix->matrix[startNode][i] != 0 && pMatrix->matrix[startNode][i] < pTable->table[i].distance)){
+            //if current edge is shorter than any other edge found
+            if (pMatrix->matrix[startNode][i] < minimumDistance){
+                //mark current edge distance as the shortest found
+                minimumDistance = pMatrix->matrix[startNode][i];
+                //if the current node ISN'T the source node
+                if (pTable->table[startNode].predecessor >= 0){
+                    //add the distance of the previous node from the source node to the current distance
+                    minimumDistance = minimumDistance + pMatrix->matrix[pTable->table[startNode].predecessor][startNode];
+                }
+                //note the node found
+                tempNode = i;
+                //mark found as true
+                found = true;
+            }
+        }
+    }
+
+
+    //if found is true, mark the minimum distance found to the found node, and mark its predecessor as the current node.
+    //then re-run the function with the new node as the starting node
+    if (found){
+        pTable->table[tempNode].distance = minimumDistance;
+        pTable->table[tempNode].predecessor = startNode;
+        runDijsktraAlgorithm(pMatrix, pTable, tempNode);
+    }
+    
+    //if the current node is the source node AND this hasnt been triggered yet
+    if (pTable->table[startNode].predecessor < 0 && count == 0){
+        //make sure this wont trigger again
+        count++;
+        //re-run the function with the source node again to ensure quickest paths have been found
+        runDijsktraAlgorithm(pMatrix, pTable, startNode);
+    }
+
+    return SUCCESS;
+    
 }
 
 
