@@ -215,8 +215,7 @@ int loadMatrixFromFile(AdjacencyMatrix *pMatrix, char filename[])
 }
 
 
-//Initialise visited array so it can be accessed at all times
-bool visited[10] = {false,false,false,false,false,false,false,false,false,false};
+
 int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traversalOutput[])
 { 
 
@@ -226,12 +225,14 @@ int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traver
 
     //initialise a variable to hold the next node in the sequence
     int nextNode;
+    //Initialise visited array
+    bool visited[10];
 
     //add the current node to the visited array
     visited[startingNode] = true;
     //find next free space in traversalOutput array and add the current node to this
     for (int j=0; j<NUMBER_OF_VERTICES; j++){
-        if (traversalOutput[j] == -1){
+        if (traversalOutput[j] <= -1){
             traversalOutput[j] = startingNode;
             break;
         }
