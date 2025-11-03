@@ -134,14 +134,40 @@ int runDijsktraAlgorithm(AdjacencyMatrix *pMatrix, DijkstraTable *pTable, int st
  */
 int getShortestPathFrom(DijkstraTable *pTable, int nodeFrom, int nodeTo, int pathFound[])
 {
-    // void casts to prevent 'unused variable warning'
-    // remove the following lines of code when you have 
-    // implemented the function yourself
-    (void)pTable;
-    (void)nodeFrom;
-    (void)nodeTo;
-    (void)pathFound;
+    //Check if inputs are valid and if not return error
+    if (pTable == NULL || nodeFrom < 0 || nodeTo < 0 || pathFound == NULL){
+        return INVALID_INPUT_PARAMETER;
+    }
 
-    // returning NOT_IMPLEMENTED until your own implementation provided
-    return NOT_IMPLEMENTED;
+    //Create a temporaru queue to hold the nodes in the order they were accessed
+    int tempQueue[NUMBER_OF_VERTICES] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+
+    /*For loop to find each node in the array*/
+    //for each position in the queue
+    for (int i=0; i<NUMBER_OF_VERTICES; i++){
+        //set current space in the queue to teh current node
+        tempQueue[i] = nodeTo;
+        //check if the current node is the source node
+        if (nodeTo != nodeFrom){
+            //if not, set the current node to the previous node
+            nodeTo = pTable->table[nodeTo].predecessor;
+        }
+    }
+
+    /*for loop to add each node to the pathFound node in the correct order*/
+    //to keep position in the pathFound queue
+    int k = 0;
+    //for each value in the tempQueue
+    for (int j=0; j<NUMBER_OF_VERTICES; j++){
+        //check if the current value is a node (-1 is used to read the queue backwards)
+        if (tempQueue[NUMBER_OF_VERTICES - j] != -1){
+            //if current value is a node, assign it to the next free space in the pathFound array
+            pathFound[k] = tempQueue[j];
+            //iterates k to keep track of next free position in pathFound
+            k++;
+        }
+    }
+
+    //If reached this point function should have succeeded so return SUCCESS
+    return SUCCESS;
 }
