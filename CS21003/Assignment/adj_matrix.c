@@ -232,7 +232,7 @@ int doDepthFirstTraversal(AdjacencyMatrix *pMatrix, int startingNode, int traver
     visited[startingNode] = true;
     //find next free space in traversalOutput array and add the current node to this
     for (int j=0; j<NUMBER_OF_VERTICES; j++){
-        if (traversalOutput[j] <= -1){
+        if (traversalOutput[j] <= 0){
             traversalOutput[j] = startingNode;
             break;
         }
