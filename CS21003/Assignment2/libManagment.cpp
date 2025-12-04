@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -53,7 +54,7 @@ class Book {
         }
 
         //Constructors
-        Book(int ID = 0, string Title = "N/A", string Author = "N/A", string Genre = "N/A", int PageCount = 0, bool Available = 0){
+        Book(int ID = 0, string Title = "N/A", string Author = "N/A", string Genre = "N/A", int PageCount = 0, bool Available = false){
             cout << "Creating object of type Book" << endl;
             setID(ID);
             setTitle(Title);
@@ -105,5 +106,67 @@ class Member {
             setMemberID(MemberID);
             setMemberName(MemberName);
             addBook(defaultBook);
+        }
+};
+
+class Library {
+    private:
+        Book Books[300];
+        Member Members[100];
+    public:
+        void addBook(Book newBook){
+            int nextID;
+            int i = 0;
+            while (nextID != 0){
+                nextID = Books[i].getID();
+                i++;
+            }
+            Books[i] = newBook;
+        }
+
+        void removeBook(Book bookToRemove){
+            bool done=false;
+            int i = 0;
+            while (done==false){
+                if (Books[i].getID() == bookToRemove.getID()){
+                    Books[i] = Book();
+                }
+            }
+        }
+
+        Book searchByTitle(string titleSearch){
+            for (int i=0; i<300; i++){
+                if (Books[i].getTitle() == titleSearch){
+                    return Books[i];
+                }
+            }
+        }
+
+        Book searchByID(int idSearch){
+            for (int i=0; i<300; i++){
+                if (Books[i].getID() == idSearch){
+                    return Books[i];
+                }
+            }
+        }
+        
+        void displayAvailableBooks(){
+            for (int i=0; i<300; i++){
+                if (Books[i].getAvailable()){
+                    cout << "ID: " << Books[i].getID() << endl << "Title: " << Books[i].getTitle() << endl << "Author: " << Books[i].getAuthor() << endl << "Genre: " << Books[i].getGenre() << endl << "Page Count: " << Books[i].getPageCount() << endl << endl;
+                }
+            }
+        }
+
+        void addMember(Member newMember){
+
+        }
+
+        void removeMember(Member memberToRemove){
+
+        }
+
+        void displayMembers(){
+
         }
 };
