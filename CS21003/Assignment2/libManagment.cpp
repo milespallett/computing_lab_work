@@ -1,6 +1,7 @@
 #include <iostream>
 
 using namespace std;
+
 class Book {
     private:
         int bookID;
@@ -65,4 +66,44 @@ class Book {
 
 class Member {
     private:
+        int memberID;
+        string memberName;
+        Book memberBooks[];
+    
+    public:
+        //Setters
+        void setMemberID(int newMemberID){
+            memberID = newMemberID;
+        }
+        void setMemberName(string newMemberName){
+            memberName = newMemberName;
+        }
+        void addBook(Book newBook){
+            int nextID;
+            int i = 0;
+            while (nextID != 0){
+                nextID = memberBooks[i].getID();
+                i++;
+            }
+            memberBooks[i] = newBook;
+        }
+
+        //Getters
+        int getMemberID(){
+            return memberID;
+        }
+        string getMemberName(){
+            return memberName;
+        }
+        Book getBooks(){
+            return *memberBooks;
+        }
+
+        //Constructors
+        Member(int MemberID = 0, string MemberName = "N/A", Book defaultBook = Book()){
+            cout << "Creating object of type Member" << endl;
+            setMemberID(MemberID);
+            setMemberName(MemberName);
+            addBook(defaultBook);
+        }
 };
