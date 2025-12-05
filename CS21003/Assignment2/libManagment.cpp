@@ -69,7 +69,7 @@ class Member {
     private:
         int memberID;
         string memberName;
-        Book memberBooks[];
+        Book memberBooks[30];
     
     public:
         //Setters
@@ -115,21 +115,19 @@ class Library {
         Member Members[100];
     public:
         void addBook(Book newBook){
-            int nextID;
-            int i = 0;
-            while (nextID != 0){
-                nextID = Books[i].getID();
-                i++;
+            for (int i=0; i<300; i++){
+                if (Books[i].getID() == 0){
+                    Books[i] = newBook;
+                    return;
+                }
             }
-            Books[i] = newBook;
         }
 
         void removeBook(Book bookToRemove){
-            bool done=false;
-            int i = 0;
-            while (done==false){
+            for (int i=0; i<300; i++){
                 if (Books[i].getID() == bookToRemove.getID()){
                     Books[i] = Book();
+                    return;
                 }
             }
         }
@@ -159,14 +157,28 @@ class Library {
         }
 
         void addMember(Member newMember){
-
+            for (int i=0; i<100; i++){
+                if (Members[i].getMemberID() == 0){
+                    Members[i] = newMember;
+                    return;
+                }
+            }
         }
 
         void removeMember(Member memberToRemove){
-
+            for (int i=0; i<100; i++){
+                if (Members[i].getMemberID() == memberToRemove.getMemberID()){
+                    Members[i] = Member();
+                    return;
+                }
+            }
         }
 
         void displayMembers(){
-
+            for (int i=0; i<100; i++){
+                if (Members[i].getMemberID() != 0){
+                    cout << "Member ID: " << Members[i].getMemberID() << endl << "Name: " << Members[i].getMemberName() << endl;
+                }
+            }
         }
 };
