@@ -107,6 +107,15 @@ class Member {
             setMemberName(MemberName);
             addBook(defaultBook);
         }
+
+        //Methods
+        void removeBook(Book bookToRemove){
+            for (int i=0; i<30; i++){
+                if (memberBooks[i].getID() == bookToRemove.getID()){
+                    memberBooks[i] = Book();
+                }
+            }
+        }
 };
 
 class Library {
@@ -181,4 +190,48 @@ class Library {
                 }
             }
         }
+
+        //Borrowing and Returning
+
+        void borrowBook(Book bookToBorrow, Member borrowingMember) {
+            if (bookToBorrow.getTitle() != searchByID(bookToBorrow.getID()).getTitle()){
+                cout << "Invalid book ID... returning..." << endl;
+                return;
+            }
+            if (borrowingMember.getMemberID() == 0){
+                cout << "Invalid member ID... returning..." << endl;
+                return;
+            }
+            if (bookToBorrow.getAvailable()){
+                borrowingMember.addBook(bookToBorrow);
+                bookToBorrow.setAvailable(false);
+                return;
+            }
+            else {
+                cout << "Book unavailable... returning..." << endl;
+                return; 
+            }
+        }
+
+        void returnBook(Book bookToReturn, Member returningMember){
+            if (bookToReturn.getTitle() != searchByID(bookToReturn.getID()).getTitle()){
+                cout << "Invalid book ID... returning..." << endl;
+                return;
+            }
+            if (returningMember.getMemberID() == 0){
+                cout << "Invalid member ID... returning..." << endl;
+                return;
+            }
+            if (bookToReturn.getAvailable()){
+                cout << "Book not borrowed... returning..." << endl;
+                return;
+            }
+            else{
+                returningMember.removeBook(bookToReturn);
+            }
+        }
+
+        //File I/O
+
+        
 };
