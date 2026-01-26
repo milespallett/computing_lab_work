@@ -13,32 +13,46 @@ function populateLeaderboard(data) {
             <td>Score</td>
         </tr>
     `
-    data.forEach(player => {
+    data.forEach((player, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${player.name}</td>
             <td>${player.score}</td>
         `
+        if (index === 0){
+            row.classList.add("top-player");
+        }
         table.appendChild(row);
+
     })
 }
 
 function sortLeaderboard(data) {
-    data.sort(function(a, b){return a.score - b.score});
+    data.sort(function(a, b){return b.score - a.score});
     populateLeaderboard(players);
 }
 
 function addPlayer(){
-    const newName = document.getElementById("newName").value;
-    const newScore = parseInt(document.getElementById("newScore").value);
-    
-    if (newName && !isNaN(newScore)){
-        players.push({ newName, newScore });
+    const name = document.getElementById("newName").value;
+    const score = parseInt(document.getElementById("newScore").value);
+    if (name && !isNaN(score)){
+        players.push({ name, score });
         sortLeaderboard(players);
         document.getElementById("newName").value = "";
         document.getElementById("newScore").value = "";
     } else {
         alert("Please provide valid inputs");
+    }
+}
+
+function filterLeaderboard(){
+    const minScore = parseInt(document.getElementById("minScore").value);
+
+    if (!isNaN(minScore)){
+        const filteredPlayers = players.filter(player => player.score >= minScore);
+        populateLeaderboard(filteredPlayers);
+    } else {
+        alert("Please provide a valid input")
     }
 }
 
