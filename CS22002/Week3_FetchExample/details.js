@@ -14,3 +14,19 @@ fetch(`https://dummyjson.com/users/${userId}`)
         `;
     })
     .catch(error => console.error('Error:', error));
+
+fetch(`https://dummyjson.com/users/${userId}/posts`)
+    .then(response => response.json())
+    .then(data => {
+        const postsList = document.getElementById('posts');
+        data.posts.forEach(post => {
+            const postCard = document.createElement('div');
+            postCard.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.body}</p>
+                <a href="comments.html?id=${post.id}">View Comments</a>
+            `;
+            postsList.appendChild(postCard);
+        });
+    })
+    .catch(error => console.error('Error:', error));
