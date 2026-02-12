@@ -1,0 +1,106 @@
+<?php
+  // Include db config
+  require_once 'db.php';
+
+  // Init vars
+  $email = $password = '';
+  $email_err = $password_err = '';
+
+  // Process form when post submit
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // Sanitize POST
+   // $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    // Put post vars in regular vars
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Validate email
+    if(empty($email)){
+      $email_err = 'Please enter email';
+    }
+
+    // Validate password
+    if(empty($password)){
+      $password_err = 'Please enter password';
+    }
+    try  
+    {  
+    // Make sure errors are empty
+    if(empty($email_err) && empty($password_err)){
+      // Prepare query
+      $sql = "SELECT email, firstname, pword FROM Student WHERE email = '$email' AND pword = '$password'";
+      $stmt = $pdo->query($sql);
+        // Attempt execute
+        if($stmt->execute()){
+          // Check if email exists
+          if($stmt->rowCount() >0){
+            if($row = $stmt->fetch()){
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['name'] = $row['firstname'];
+                header('location: index.php');
+              } 
+            }
+            else {
+                // Display wrong password message
+                $password_err = 'Invalid email or password';
+              }
+          } else {
+            die('Something went wrong');
+          }
+      
+      // Close statement
+      unset($stmt);
+    }
+    }
+    catch(PDOException $error)  
+    {  
+         $password_err = "Invalid email or password";  
+    }  
+
+
+    // Close connection
+    unset($pdo);
+  }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <title>Login To Your Account</title>
+</head>
+<body class="bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card card-body bg-light mt-5">
+          <h2>Login (Bad version)</h2>
+          <p>Fill in your credentials</p>
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">   
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="text" name="email" class="form-control form-control-lg <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+              <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="text" name="password" class="form-control form-control-lg <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+              <span class="invalid-feedback"><?php echo $password_err; ?></span>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <input type="submit" value="Login" class="btn btn-success btn-block">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
