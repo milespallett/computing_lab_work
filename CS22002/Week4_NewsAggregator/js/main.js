@@ -8,23 +8,23 @@ import { showErrorMessage } from "./errorHandler.js";
 const container = document.getElementById("newsContainer");
 let articles = [];
 
-/*
 async function loadNews() {
     container.innerHTML = "";
-    showSkeletons(container, 6);
+    //showSkeletons(container, 6);
 
     try {
         const [newsAPI, guardianAPI, nytAPI] = await fetchNews();
         articles = [...newsAPI.articles, ...guardianAPI.results, ...nytAPI.results];
 
-        removeSkeletons();
+        //removeSkeletons();
         displayNews(articles);
     } catch (error) {
-        removeSkeletons();
-        showErrorMessage();
+        //removeSkeletons();
+        //showErrorMessage();
     }
 }
 
+/*
 function displayNews(filteredArticles) {
     container.innerHTML = "";
     filteredArticles.forEach(article => {
