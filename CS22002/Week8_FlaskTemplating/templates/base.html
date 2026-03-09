@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div id="navigation_bar">{% include "navbar.html" %}</div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="foot_bar">{% include "footer.html" %}</div>
+</body>
