@@ -14,8 +14,8 @@ PAIRS = [('861909047ffffff','861956917ffffff')
          , ('861956327ffffff', '86195665fffffff')
          , ('861956327ffffff', '861956917ffffff')
          , ('861956327ffffff', '861956c77ffffff')]
-WIND_MAP_PATH = 'CS21002\\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
-GRAPH_PATH = 'CS21002\\North_Channel_visits.gexf' #path to gexf file provided on mydundee
+WIND_MAP_PATH = 'CS21002\\Resit\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
+GRAPH_PATH = 'CS21002\\Resit\North_Channel_visits.gexf' #path to gexf file provided on mydundee
 
 
 ###Logger setup
