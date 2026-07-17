@@ -75,7 +75,7 @@ if __name__ == "__main__":
     #Run and log model using A2C RL algorithm and stable-baseline3's MLP model policy
     model = A2C("MlpPolicy", mnEnv)
     model.set_logger(new_logger)
-    model.learn(2500, callback=evCallback)
+    model.learn(10000, callback=evCallback)
 
     #prints the current model policy for checking
     print("\n Outline of the policy used:")
