@@ -6,6 +6,7 @@ import networkx as nx
 import pandas as pd
 from stable_baselines3 import A2C
 from stable_baselines3.common.logger import configure
+from stable_baselines3.common.callbacks import EvalCallback
 
 ###Variable Delcarations###
 #pairs taken from brief on mydundee
@@ -14,8 +15,10 @@ PAIRS = [('861909047ffffff','861956917ffffff')
          , ('861956327ffffff', '86195665fffffff')
          , ('861956327ffffff', '861956917ffffff')
          , ('861956327ffffff', '861956c77ffffff')]
-WIND_MAP_PATH = 'CS21002\\Resit\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
-GRAPH_PATH = 'CS21002\\Resit\North_Channel_visits.gexf' #path to gexf file provided on mydundee
+WIND_MAP_PATH = r'CS21002\\Resit\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
+GRAPH_PATH = r'CS21002\\Resit\North_Channel_visits.gexf' #path to gexf file provided on mydundee
+
+LOGGING_PATH = r'CS21002\\Resit\logs' #path for callback to log to
 
 
 ###Logger setup
@@ -48,24 +51,28 @@ def create_env():
 if __name__ == "__main__":
     print(f"Creating array of h3 cells from {GRAPH_PATH}...")
     #array of h3 cells, using networkx to extract nodes from gexf file provided on mydundee
-    h3Array = nx.read_gexf('CS21002\\North_Channel_visits.gexf').nodes
+    h3Array = nx.read_gexf(f"{GRAPH_PATH}").nodes
 
     print(f"Creating windmap dictionary from {WIND_MAP_PATH}... ")
     #dictionary created from windmap csv file provided on mydundee, using pandas to read csv and convert to dictionary
-    windmapDict = pd.read_csv('CS21002\\North_Channel_windmap.csv')
+    windmapDict = pd.read_csv(f"{WIND_MAP_PATH}")
     windmapDict = pd.DataFrame.to_dict(windmapDict)
 
     print(f"Loading graph from {GRAPH_PATH}...")
     #networkx graph created from gexf file provided on mydundee, using networkx to read gexf file and convert to undirected graph
-    nxGraph = nx.read_gexf('CS21002\\North_Channel_visits.gexf').to_undirected()
+    nxGraph = nx.read_gexf(f"{GRAPH_PATH}").to_undirected()
 
     print(f"Creating environment...")
     mnEnv = create_env()
 
+    #Evaluation
+    evEnv = create_env()
+    evCallback = EvalCallback(evEnv, best_model_save_path=f"{LOGGING_PATH}", log_path=f"{LOGGING_PATH}", eval_freq=500, deterministic=True, render=False)
+
     #Run and log model using A2C RL algorithm and stable-baseline3's MLP model policy
     model = A2C("MlpPolicy", mnEnv)
     model.set_logger(new_logger)
-    model.learn(10_000)
+    model.learn(2500, callback=evCallback)
 
     #prints the current model policy for checking
     print("\n Outline of the policy used:")
