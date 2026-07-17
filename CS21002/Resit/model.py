@@ -7,6 +7,9 @@ import pandas as pd
 from stable_baselines3 import A2C
 from stable_baselines3.common.logger import configure
 from stable_baselines3.common.callbacks import EvalCallback
+import os
+
+dir = os.path.dirname(os.path.realpath(__file__))
 
 ###Variable Delcarations###
 #pairs taken from brief on mydundee
@@ -15,10 +18,10 @@ PAIRS = [('861909047ffffff','861956917ffffff')
          , ('861956327ffffff', '86195665fffffff')
          , ('861956327ffffff', '861956917ffffff')
          , ('861956327ffffff', '861956c77ffffff')]
-WIND_MAP_PATH = r'CS21002\\Resit\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
-GRAPH_PATH = r'CS21002\\Resit\North_Channel_visits.gexf' #path to gexf file provided on mydundee
+WIND_MAP_PATH = f'{dir}\\North_Channel_windmap.csv' #path to windmap csv file provided on mydundee
+GRAPH_PATH = f'{dir}\\North_Channel_visits.gexf' #path to gexf file provided on mydundee
 
-LOGGING_PATH = r'CS21002\\Resit\logs' #path for callback to log to
+LOGGING_PATH = f'{dir}\\logs' #path for callback to log to
 
 
 ###Logger setup
